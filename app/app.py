@@ -25,7 +25,7 @@ DB_NAME = os.getenv('DB_NAME', 'env_monitoring')
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 # API Configuration
-SENSEBOX_ID = os.getenv('SENSEBOX_ID', '6252afcfd7e732001bb6b9f7')
+SENSEBOX_ID = os.getenv('SENSEBOX_ID', '6252afcfd7e732001bb6b9f7')  # Second value is the fall-back
 API_URL_FORMAT = os.getenv('API_URL_FORMAT', 'https://api.opensensemap.org/boxes/{sensebox_id}?format={response_format}')
 RESPONSE_FORMAT = "json"
 

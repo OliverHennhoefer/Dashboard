@@ -18,7 +18,7 @@ COPY . .
 # Make port 8050 available to the world outside this container
 EXPOSE 8050
 
-# Define environment variable (optional, can be set in docker-compose)
+# Define environment variable (optional, can also be set in docker-compose)
 # ENV NAME World
 
 # Run app.py when the container launches
