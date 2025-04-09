@@ -1,0 +1,6 @@
+dash
+plotly
+pandas
+sqlalchemy
+psycopg2-binary # PostgreSQL adapter for Python
+requests

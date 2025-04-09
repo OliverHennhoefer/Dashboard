@@ -1,0 +1,42 @@
+services:
+  db:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
+    environment:
+      POSTGRES_USER: user # Changed from default postgres for clarity
+      POSTGRES_PASSWORD: password # Use a strong password in production
+      POSTGRES_DB: env_monitoring
+    ports:
+      - "5433:5432" # Map host port 5433 to container port 5432
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data # Persist data
+      - ./init-db:/docker-entrypoint-initdb.d # Run initialization scripts
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U user -d env_monitoring"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: dash_app
+    ports:
+      - "8050:8050" # Map host port 8050 to container port 8050
+    environment:
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: db # Service name from docker-compose
+      DB_PORT: 5432 # Internal port of the DB container
+      DB_NAME: env_monitoring
+      SENSEBOX_ID: "6252afcfd7e732001bb6b9f7" # Your specific Sensebox ID
+      API_URL_FORMAT: "https://api.opensensemap.org/boxes/{sensebox_id}?format={response_format}"
+    depends_on:
+      db:
+        condition: service_healthy # Wait for the database to be ready
+    volumes:
+      - ./app:/app # Mount local app code into container for development (optional)
+
+volumes:
+  timescaledb_data: # Define the named volume
