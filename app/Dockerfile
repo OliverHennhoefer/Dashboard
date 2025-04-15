@@ -10,7 +10,7 @@ COPY requirements.txt .
 # Install any needed packages specified in requirements.txt
 # --no-cache-dir reduces image size
 # --trusted-host pypi.python.org avoids SSL issues in some environments
-RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the current directory contents into the container at /app
 COPY . .
