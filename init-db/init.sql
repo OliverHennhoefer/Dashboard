@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS sensor_data (
     measurement DOUBLE PRECISION, -- Use DOUBLE PRECISION for floating point values
     unit        TEXT,
     sensor_type TEXT,
-    icon        TEXT,
     -- Define composite primary key or unique constraint for ON CONFLICT
     UNIQUE (timestamp, box_id, sensor_id)
 );
